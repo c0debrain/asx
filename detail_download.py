@@ -28,6 +28,9 @@ def dl_lines(lineiterator):
         company_dir = '%s/%s' % (OUTDIR, company)
         if not os.path.exists(company_dir): os.makedirs(company_dir)
         outfile = '%s/%s_%s_%s.pdf' % (company_dir, company, year.strftime('%Y-%m-%d'), pdfid)
+        if os.path.exists(outfile):
+            logging.debug('skipping already-downloaded doc %s' % outfile)
+            continue
         with open(outfile, 'wb') as fh:
             logging.debug('processing %s' % outfile)
             resp = br.open(pdfurl)
